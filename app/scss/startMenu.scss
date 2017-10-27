@@ -1,0 +1,54 @@
+
+@import 'index';
+
+#startMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 90vh;
+  margin-top: 50px;
+  border: $border-width solid $secondary-color;
+  border-radius: $border-radius;
+}
+
+h1 {
+  text-align: center;
+  padding: 20px;
+  color: $primary-color;
+  font-family: $header-font;
+}
+
+button {
+  margin: 20px 100px;
+  padding: 50px 0px;
+  min-height: 50px;
+}
+
+.btn {
+  border-width: $border-width;
+  border-radius: $border-radius;
+}
+
+#rules {
+  margin: 20px;
+  margin-top: 80px;
+  color: $secondary-color;
+}
+
+#rules h3 {
+  text-align: center;
+  font-weight: bold;
+  color: $primary-color;
+  padding: 10px;
+}
+
+li {
+  padding: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  #startMenu {
+    height: auto;
+    border: none;
+  }
+}

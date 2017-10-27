@@ -1,0 +1,28 @@
+@import 'index';
+
+.header{
+  display: flex;
+  display: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px;
+  padding-bottom: 50px;
+  margin-bottom: 50px;
+  border-bottom: $border-width solid $secondary-color;
+}
+
+.header h4 {
+  font-weight: bold;  
+}
+
+.card {
+  margin-bottom: 40px;
+}
+
+.card .card-img-top:active {
+  border: $border-width solid $primary-color;
+}
+
+.discovered .card-img-top {
+  border: $border-width * 2 solid #26C281;
+}

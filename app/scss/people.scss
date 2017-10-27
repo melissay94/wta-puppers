@@ -1,0 +1,14 @@
+@import 'index';
+
+.container-fluid {
+  width: 90vw;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card .card-img-container {
+  height: 20rem;
+  width: 20rem;
+}

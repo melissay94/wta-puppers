@@ -1,0 +1,15 @@
+$primary-color: #1cd9c3;
+$secondary-color: #333;
+$header-font: 'Shrikhand', cursive;
+$border-width: 4px;
+$border-radius: 30px;
+
+@media only screen and (min-width: 900px) {
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    padding-bottom: 100px;
+  }
+}
