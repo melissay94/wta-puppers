@@ -1,5 +1,8 @@
-# wta-namegame
-It's the name game!
+# wta-puppers
+How well do you know your puppers??
+
+# Using the Dog API
+https://dog.ceo/dog-api/#all
 
 # Using react-webpack2 from vuzDylan on GitHub
 Boilerplate for React built with Webpack2
