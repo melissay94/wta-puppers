@@ -14,15 +14,15 @@ class Guess extends React.Component {
         <PageTitle title="All right! Guessing time!" />
         <div className="header">
           <h4>Score: {this.props.score}</h4>
-          <h4>Find {this.props.randomPerson.firstName} {this.props.randomPerson.lastName}</h4>
+          <h4>Find {this.props.randomPupper.breed}</h4>
           <button type="button" className="btn btn-outline-dark" onClick={e => window.location.reload()}>Restart Game</button>
         </div>
         <PeopleGrid
-          currentPeople={this.props.currentPeople}
-          people={this.props.people}
+          currentPuppers={this.props.currentPuppers}
+          puppers={this.props.puppers}
           mode={this.props.mode}
-          randomPerson={this.props.randomPerson}
-          setRandomPerson={this.props.setRandomPerson}
+          randomPupper={this.props.randomPupper}
+          setRandomPupper={this.props.setRandomPupper}
           score={this.props.score}
           incrementScore={this.props.incrementScore}
           decrementScore={this.props.decrementScore}
@@ -35,28 +35,24 @@ class Guess extends React.Component {
 Guess.propTypes = {
   mode: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
-  people: PropTypes.arrayOf(
+  breeds: PropTypes.objectOf(
+    PropTypes.arrayOf(PropTypes.string).isRequired
+  ).isRequired,
+  currentPuppers: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
+      id: PropTypes.string,
+      breed: PropTypes.string,
+      image: PropTypes.string,
     }).isRequired
   ).isRequired,
-  currentPeople: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
-  randomPerson: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
+  randomPupper: PropTypes.shape({
+    id: PropTypes.string,
+    breed: PropTypes.string,
+    image: PropTypes.string,
   }).isRequired,
   incrementScore: PropTypes.func.isRequired,
   decrementScore: PropTypes.func.isRequired,
-  setRandomPerson: PropTypes.func.isRequired,
+  setRandomPupper: PropTypes.func.isRequired,
 };
 
 export default Guess;

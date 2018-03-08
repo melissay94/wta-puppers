@@ -1,16 +1,17 @@
 import { connect } from 'react-redux';
 
 import { setGameState } from '../actions/general';
-import { setRandomPerson } from '../actions/people';
+import { setRandomPupper, fetchRandomPupper, setCurrentPuppers } from '../actions/people';
 import { incrementCounter, resetCounter, incrementScore, decrementScore } from '../actions/gameplay';
 import GameLoop from '../components/gameLoop';
 
 const mapStateToProps = (state) => {
   return {
     gameState: state.general.gameState,
-    currentPeople: state.people.currentPeople,
-    randomPerson: state.people.randomPerson,
-    randomPersonIndex: state.people.randomPersonIndex,
+    setCurrentPuppers: state.people.setCurrentPuppers,
+    currentPuppers: state.people.currentPuppers,
+    randomPupper: state.people.randomPupper,
+    randomPupperIndex: state.people.randomPersonIndex,
     counter: state.gameplay.counter,
     score: state.gameplay.score,
   };
@@ -18,8 +19,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getAPupper: (breed, id) => dispatch(fetchRandomPupper(breed, id)),
     setGameState: gameState => dispatch(setGameState(gameState)),
-    setRandomPerson: randomPerson => dispatch(setRandomPerson(randomPerson)),
+    setRandomPupper: randomPupper => dispatch(setRandomPupper(randomPupper)),
+    setCurrentPuppers: currentPuppers => dispatch(setCurrentPuppers(currentPuppers)),
     incrementCounter: () => dispatch(incrementCounter()),
     resetCounter: () => dispatch(resetCounter()),
     incrementScore: () => dispatch(incrementScore()),

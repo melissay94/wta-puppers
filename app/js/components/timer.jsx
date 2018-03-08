@@ -8,7 +8,7 @@ class CountDownTimer extends React.Component {
 
     this.handleCounter = this.handleCounter.bind(this);
     this.state = {
-      timeLeft: 10,
+      timeLeft: 5 + (Math.random() * 10),
       counter: 0,
     };
   }
@@ -18,7 +18,7 @@ class CountDownTimer extends React.Component {
     if (this.props.counter < 3) {
       this.props.incrementCounter();
       // Slight addition of a random number to trigger the reset
-      this.setState({ timeLeft: this.state.timeLeft + (Math.random() * 0.01) });
+      this.setState({ timeLeft: 5 + (Math.random() * 10) });
     } else {
       this.props.setGameState('guess');
       this.props.resetCounter();

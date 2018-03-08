@@ -11,7 +11,7 @@ class Memorize extends React.Component {
 
   render() {
     const sliceStart = this.props.counter * 5;
-    const currentRound = this.props.currentPeople.slice(sliceStart, sliceStart + 5);
+    const currentRound = this.props.currentPuppers.slice(sliceStart, sliceStart + 5);
 
     return (
       <div id="memorize">
@@ -22,9 +22,9 @@ class Memorize extends React.Component {
             resetCounter={this.props.resetCounter}
             setGameState={this.props.setGameState}
           />
-          <PageTitle title="Quick! Memorize their names!" />
+          <PageTitle title="Quick! Memorize those puppers!" />
         </div>
-        <PeopleRow currentPeople={currentRound} />
+        <PeopleRow currentPuppers={currentRound} />
       </div>
     );
   }
@@ -32,11 +32,11 @@ class Memorize extends React.Component {
 
 Memorize.propTypes = {
   counter: PropTypes.number.isRequired,
-  currentPeople: PropTypes.arrayOf(
+  currentPuppers: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
+      id: PropTypes.string,
+      breed: PropTypes.string,
+      image: PropTypes.string,
     }).isRequired
   ).isRequired,
   incrementCounter: PropTypes.func.isRequired,

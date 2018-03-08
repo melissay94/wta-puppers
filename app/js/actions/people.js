@@ -1,30 +1,49 @@
 import axios from 'axios';
 
-// Use axios to get willowtree data from the api
-export const fetchPeople = () => {
+// Use axios to get breed list from the api
+export const fetchBreeds = () => {
   return (dispatch) => {
-    dispatch({ type: 'FETCH_PEOPLE' });
+    dispatch({ type: 'FETCH_BREEDS' });
 
-    axios.get('https://willowtreeapps.com/api/v1.0/profiles')
+    axios.get('https://dog.ceo/api/breeds/list/all')
       .then((response) => {
-        dispatch({ type: 'FETCH_PEOPLE_FULFILLED', payload: response.data });
+        dispatch({ type: 'FETCH_BREEDS_FULFILLED', payload: response.data.message });
       })
       .catch((err) => {
-        dispatch({ type: 'FETCH_PEOPLE_REJECTED', payload: err });
+        dispatch({ type: 'FETCH_BREEDS_REJECTED', payload: err });
       });
   };
 };
 
-export const setCurrentPeople = (currentPeople) => {
-  return {
-    type: 'SET_CURRENT_PEOPLE',
-    payload: currentPeople,
+// Use axios to get random breed picture
+export const fetchRandomPupper = (breed, id) => {
+  return (dispatch) => {
+    dispatch({ type: 'FETCH_RANDOM_PUPPER'});
+    axios.get('https://dog.ceo/api/breed/' + breed + '/images/random')
+      .then((response) => {
+        dispatch({ type: 'FETCH_RANDOM_PUPPER_FULFILLED', payload: {
+            id: id,
+            breed: breed,
+            image: response.data.message 
+          }
+        });
+      })
+      .catch((err) => {
+        dispatch({ type: 'FETCH_RANDOM_PUPPER_REJECTED', payload: err });
+      });
   };
 };
 
-export const setRandomPerson = (randomPerson) => {
+export const setCurrentPuppers = (currentPuppers) => {
   return {
-    type: 'SET_RANDOM_PERSON',
-    payload: randomPerson,
+    type: 'SET_CURRENT_PUPPERS',
+    payload: currentPuppers,
+  };
+};
+
+export const setRandomPupper = (randomPupper) => {
+  return {
+    type: 'SET_RANDOM_PUPPER',
+    payload: randomPupper,
   };
 };

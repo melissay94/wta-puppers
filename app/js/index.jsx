@@ -9,7 +9,7 @@ class MainComponent extends React.Component {
 
   // Calls the API to get all the data right at the top
   componentDidMount() {
-    this.props.getData();
+    this.props.getBreeds();
   }
 
   // Active view is set by the start buttons or the default value
@@ -20,10 +20,10 @@ class MainComponent extends React.Component {
         activeView = <StartMenu view={this.props.view} setView={this.props.setView} />;
         break;
       case 'gameLoop':
-        activeView = <GameLoop setCurrentPeople={this.props.setCurrentPeople} people={this.props.people} mode={this.props.view} />;
+        activeView = <GameLoop breeds={this.props.breeds} mode={this.props.view} />;
         break;
       case 'gameLoopHard':
-        activeView = <GameLoop setCurrentPeople={this.props.setCurrentPeople} people={this.props.people} mode={this.props.view} />;
+        activeView = <GameLoop breeds={this.props.breeds} mode={this.props.view} />;
         break;
       default:
         activeView = <StartMenu view={this.props.view} setView={this.props.setView} />;
@@ -43,16 +43,11 @@ MainComponent.defaultProps = {
 
 MainComponent.propTypes = {
   view: PropTypes.string.isRequired,
-  people: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-    }).isRequired
+  breeds: PropTypes.objectOf(
+    PropTypes.arrayOf(PropTypes.string).isRequired
   ).isRequired,
   setView: PropTypes.func.isRequired,
-  getData: PropTypes.func.isRequired,
-  setCurrentPeople: PropTypes.func.isRequired,
+  getBreeds: PropTypes.func.isRequired,
 };
 
 export default MainComponent;

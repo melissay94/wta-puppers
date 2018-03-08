@@ -3,104 +3,92 @@ import PropTypes from 'prop-types';
 
 import 'scss/people.scss';
 
-// Component for creating a grid of people from data fetched from API
+// Component for creating a grid of puppers from data fetched from API
 class People extends React.Component {
   constructor(props) {
     super(props);
     this.handleGuess = this.handleGuess.bind(this);
     this.state = {
-      foundPeople: [],
+      foundPuppers: [],
       correctGuesses: 0,
     };
   }
 
-// Makes sure there is a random person when the page loads
+// Makes sure there is a random pupper when the page loads
   componentDidMount() {
-    this.generateRandomPerson();
+    this.generateRandomPupper();
   }
 
-// Picks a random value from the 20 people to choose from
-  generateRandomPerson() {
-    const randomIndex = Math.floor(Math.random() * this.props.currentPeople.length);
-    const randomPerson = this.props.currentPeople[randomIndex];
-    if (this.state.foundPeople.indexOf(randomPerson.id) < 0) {
-      this.props.setRandomPerson(randomPerson);
+// Picks a random value from the 20 puppers to choose from
+  generateRandomPupper() {
+    const randomIndex = Math.floor(Math.random() * this.props.currentPuppers.length);
+    const randomPupper = this.props.currentPuppers[randomIndex];
+    if (this.state.foundPuppers.indexOf(randomPupper.id) < 0) {
+      this.props.setRandomPupper(randomPupper);
     } else {
-      this.generateRandomPerson();
+      this.generateRandomPupper();
     }
   }
 
   // Handles logic for when player clicks on a picture
-  handleGuess(person) {
-    // Correct guess increases score and adds that person to the list of correct guesses
-    if (person.id === this.props.randomPerson.id) {
+  handleGuess(pupper) {
+    // Correct guess increases score and adds that pupper to the list of correct guesses
+    if (pupper.id === this.props.randomPupper.id) {
       this.props.incrementScore();
       this.setState({
-        foundPeople: this.state.foundPeople.concat(person.id),
+        foundPuppers: this.state.foundPuppers.concat(pupper.id),
         correctGuesses: this.state.correctGuesses + 1,
       });
-      document.getElementById(person.id).className += ' discovered';
-      this.generateRandomPerson();
+      document.getElementById(pupper.id).className += ' discovered';
+      this.generateRandomPupper();
     } else if (this.props.score > 0) {
       // Incorrect guess decreases score
       this.props.decrementScore();
     }
   }
 
-  // Render component for a grid of images based on array of people objects
+  // Render component for a grid of images based on array of puppers objects
   render() {
-    let people;
-    if (this.props.mode === 'gameLoopHard') {
-      people = this.props.people;
-    } else {
-      people = this.props.currentPeople;
-    }
+    const puppers = this.props.currentPuppers;
 
     const defaultUrl = '//images.contentful.com/3cttzl4i3k1h/5ZUiD3uOByWWuaSQsayAQ6/c630e7f851d5adb1876c118dc4811aed/featured-image-TEST1.png';
-    let mappedPeople;
+    let mappedPuppers;
 
-    if (people) {
-      mappedPeople = people.map(person =>
-        <div className="card " id={person.id} key={person.id} onClick={e => this.handleGuess(person)}>
+    if (puppers) {
+      mappedPuppers = puppers.map(pupper =>
+        <div className="card " id={pupper.id} key={pupper.id} onClick={e => this.handleGuess(pupper)}>
           <div className="card-img-container">
-            <img className="card-img-top" src={person.headshot.url ? person.headshot.url : defaultUrl} alt={person.headshot.alt} />
+            <img className="card-img-top" src={pupper.image? pupper.image : defaultUrl} alt={pupper.breed} />
           </div>
         </div>
       );
     } else {
-      mappedPeople = null;
+      mappedPuppers = null;
     }
 
     return (
-      <div className="container-fluid">{mappedPeople}</div>
+      <div className="container-fluid">{mappedPuppers}</div>
     );
   }
 }
 
 // Define prop types
 People.propTypes = {
-  people: PropTypes.arrayOf(
+  currentPuppers: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
+      id: PropTypes.string,
+      breed: PropTypes.string,
+      image: PropTypes.string,
     }).isRequired
   ).isRequired,
-  currentPeople: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
-  randomPerson: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
+  randomPupper: PropTypes.shape({
+    id: PropTypes.string,
+    breed: PropTypes.string,
+    image: PropTypes.string,
   }).isRequired,
   score: PropTypes.number.isRequired,
   mode: PropTypes.string.isRequired,
-  setRandomPerson: PropTypes.func.isRequired,
+  setRandomPupper: PropTypes.func.isRequired,
   incrementScore: PropTypes.func.isRequired,
   decrementScore: PropTypes.func.isRequired,
 };

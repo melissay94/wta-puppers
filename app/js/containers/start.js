@@ -1,20 +1,19 @@
 import { connect } from 'react-redux';
 
 import { setViewState } from '../actions/general';
-import { fetchPeople, setCurrentPeople } from '../actions/people';
+import { fetchBreeds } from '../actions/people';
 import MainComponent from '../index';
 
 const mapStateToProps = (state) => {
   return {
     view: state.general.view,
-    people: state.people.people,
+    breeds: state.people.breeds,
   };
 };
 
 const mapDispatchtoProps = (dispatch) => {
   return {
-    getData: () => dispatch(fetchPeople()),
-    setCurrentPeople: currentPeople => dispatch(setCurrentPeople(currentPeople)),
+    getBreeds: () => dispatch(fetchBreeds()),
     setView: view => dispatch(setViewState(view)),
   };
 };

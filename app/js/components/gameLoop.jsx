@@ -7,59 +7,53 @@ import Guess from './guess';
 class GameLoop extends React.Component {
 
   componentDidMount() {
-    const people = this.props.people;
-    const visiblePeople = [];
+    const breeds = this.props.breeds;
 
-    if (people.length > 1) {
-      for (var i = 0; i < 20; i++) {
-        const random = Math.floor(Math.random() * people.length);
-        // Checking if someone is already in the array
-        if (visiblePeople.indexOf(people[random]) < 0) {
-          visiblePeople.push(people[random]);
-        } else {
-          i--;
-        }
-      }
+    const breedKeys = Object.keys(breeds);
+
+    for (var i = 0; i < 20; i++) {
+      const pupperId = 'pupper_' + i;
+      this.props.getAPupper(breedKeys[i], pupperId);
     }
-    this.props.setCurrentPeople(visiblePeople);
   }
 
   render() {
     let gameView;
-    switch (this.props.gameState) {
-      case 'memorize': 
-        gameView = <Memorize
-          currentPeople={this.props.currentPeople}
-          counter={this.props.counter}
-          incrementCounter={this.props.incrementCounter}
-          resetCounter={this.props.resetCounter}
-          setGameState={this.props.setGameState}
-        />;
-        break;
-      
-      case 'guess': 
-        gameView = <Guess
-          currentPeople={this.props.currentPeople}
-          people={this.props.people}
-          randomPerson={this.props.randomPerson}
-          score={this.props.score}
-          mode={this.props.mode}
-          setRandomPerson={this.props.setRandomPerson}
-          incrementScore={this.props.incrementScore}
-          decrementScore={this.props.decrementScore}
-        />;
-        break;
-      
-      default:
-        gameView = <Memorize
-          currentPeople={this.props.currentPeople}
-          counter={this.props.counter}
-          incrementCounter={this.props.incrementCounter}
-          resetCounter={this.props.resetCounter}
-          setGameState={this.props.setGameState}
-        />;
+    if (this.props.currentPuppers.length > 0) {
+      switch (this.props.gameState) {
+        case 'memorize': 
+          gameView = <Memorize
+            currentPuppers={this.props.currentPuppers}
+            counter={this.props.counter}
+            incrementCounter={this.props.incrementCounter}
+            resetCounter={this.props.resetCounter}
+            setGameState={this.props.setGameState}
+          />;
+          break;
+        
+        case 'guess': 
+          gameView = <Guess
+            currentPuppers={this.props.currentPuppers}
+            breeds={this.props.breeds}
+            randomPupper={this.props.randomPupper}
+            score={this.props.score}
+            mode={this.props.mode}
+            setRandomPupper={this.props.setRandomPupper}
+            incrementScore={this.props.incrementScore}
+            decrementScore={this.props.decrementScore}
+          />;
+          break;
+        
+        default:
+          gameView = <Memorize
+            currentPuppers={this.props.currentPuppers}
+            counter={this.props.counter}
+            incrementCounter={this.props.incrementCounter}
+            resetCounter={this.props.resetCounter}
+            setGameState={this.props.setGameState}
+          />;
+      }
     }
-
     return (
       <div id="main">
         {gameView}
@@ -77,28 +71,24 @@ GameLoop.propTypes = {
   score: PropTypes.number.isRequired,
   counter: PropTypes.number.isRequired,
   mode: PropTypes.string.isRequired,
-  people: PropTypes.arrayOf(
+  breeds: PropTypes.objectOf(
+    PropTypes.arrayOf(PropTypes.string).isRequired
+  ).isRequired,
+  currentPuppers: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
+      id: PropTypes.string,
+      breed: PropTypes.string,
+      image: PropTypes.string,
     }).isRequired
   ).isRequired,
-  currentPeople: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
-  randomPerson: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
+  randomPupper: PropTypes.shape({
+    id: PropTypes.string,
+    breed: PropTypes.string,
+    image: PropTypes.string,
   }).isRequired,
   setGameState: PropTypes.func.isRequired,
-  setRandomPerson: PropTypes.func.isRequired,
-  setCurrentPeople: PropTypes.func.isRequired,
+  setRandomPupper: PropTypes.func.isRequired,
+  setCurrentPuppers: PropTypes.func.isRequired,
   incrementCounter: PropTypes.func.isRequired,
   resetCounter: PropTypes.func.isRequired,
   incrementScore: PropTypes.func.isRequired,
