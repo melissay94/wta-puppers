@@ -1,0 +1,84 @@
+# Define the version we want
+version: 2
+
+# Define our jobs
+jobs:
+  setup:
+    # Get the docker image we want to use
+    docker:
+      - image: circleci/node:8.9.3
+    steps:
+      - checkout
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-npm-wee
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+  lint:
+    # Get the docker image we want to use
+    docker:
+      - image: circleci/node:8.9.3
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Lint Code
+          command: npm run lint
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+  prod_build:
+    # Get the docker image we want to use
+    docker:
+      - image: circleci/node:8.9.3
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Build Prod
+          command: npm run prod_build
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+  dev_build:
+    # Get the docker image we want to use
+    docker:
+      - image: circleci/node:8.9.3
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Build Prod
+          command: npm run dev_build
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+# Set up our workflow to have a fan out / parallel workflow
+workflows:
+  version: 2
+  lint-build:
+    jobs:
+     - setup
+     - lint:
+        requires: 
+          - setup
+    - dev_build:
+        requires:
+          - setup
+    - prod_build:
+        requires:
+          - lint
+
