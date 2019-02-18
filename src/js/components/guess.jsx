@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import 'scss/guess.scss';
+import '../scss/guess.scss';
 
 import PeopleGrid from './peopleGrid';
 import PageTitle from './title';
