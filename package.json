@@ -2,12 +2,19 @@
   "name": "wta-puppers-webpack4",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "cross-env NODE_ENV=development BABEL_ENV=development node ./server.js",
     "dev": "webpack --mode development --config webpack.config.dev.js",
     "build": "webpack --mode production --config webpack.config.prod.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "debug": "DEBUG=true npm run build -- --display-optimization-bailout",
+    "lint": "eslint --ext .js --ext .jsx app",
+    "validate": "npm ls"
   },
+  "pre-push": [
+    "validate",
+    "lint"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -26,6 +33,7 @@
     "eslint-import-resolver-webpack": "^0.11.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",

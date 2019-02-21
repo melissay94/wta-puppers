@@ -6,7 +6,7 @@ module.exports = {
   entry: {
     main: [
       'react-hot-loader/patch',
-      'webpack-dev-server/client?http:localhost:5000',
+      'webpack-dev-server/client?http://localhost:5000',
       'webpack/hot/only-dev-server',
       './src/js/app.jsx',
     ]
@@ -66,9 +66,8 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('development'),
     }),
     new HtmlWebPackPlugin({
-      title: 'Black History Month',
-      template: "./src/index.html",
-      filename: "./index.html"
+      title: 'WTA Puppers',
+      template: "./src/index.ejs",
     })
   ]
 };
