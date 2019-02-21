@@ -6,7 +6,7 @@ jobs:
   setup:
     # Get the docker image we want to use
     docker:
-      - image: circleci/node:8.9.3
+      - image: circleci/node:10.15.1
     steps:
       - checkout
       - run:
@@ -24,7 +24,7 @@ jobs:
   lint:
     # Get the docker image we want to use
     docker:
-      - image: circleci/node:8.9.3
+      - image: circleci/node:10.15.1
     steps:
       - checkout
       - restore_cache:
@@ -39,14 +39,14 @@ jobs:
   prod_build:
     # Get the docker image we want to use
     docker:
-      - image: circleci/node:8.9.3
+      - image: circleci/node:10.15.1
     steps:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Build Prod
-          command: npm run prod_build
+          command: npm run build
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
@@ -61,7 +61,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Build Prod
-          command: npm run dev_build
+          command: npm run dev
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:

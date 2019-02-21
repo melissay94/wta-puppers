@@ -8,7 +8,7 @@
     "dev": "webpack --mode development --config webpack.config.dev.js",
     "build": "webpack --mode production --config webpack.config.prod.js",
     "debug": "DEBUG=true npm run build -- --display-optimization-bailout",
-    "lint": "eslint --ext .js --ext .jsx app",
+    "lint": "eslint --ext .js --ext .jsx src",
     "validate": "npm ls"
   },
   "pre-push": [
