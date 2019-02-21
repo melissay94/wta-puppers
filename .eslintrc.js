@@ -1,7 +1,4 @@
 module.exports = {
-  extends: [
-    "sse",
-  ],
   parser: "babel-eslint",
   env: {
     browser: true,
