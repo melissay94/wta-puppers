@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const compression = require('compression');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,5 +11,5 @@ const server = app.listen(port, () => {
 app.use('/', express.static('dist'));
 
 app.use('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', index.html));
+    res.sendFile(path.join(__dirname, 'dist', 'assets/index.html'));
 })
