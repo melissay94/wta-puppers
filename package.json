@@ -6,7 +6,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development BABEL_ENV=development node ./server.js",
     "dev": "webpack --mode development --config webpack.config.dev.js",
-    "build": "webpack --mode production --config webpack.config.prod.js",
+    "build": "webpack --mode production --config webpack.config.prod.js", 
+    "prod": "cross-env NODE_ENV=production BABEL_ENV=production npm run build && node ./server.prod.js",
     "debug": "DEBUG=true npm run build -- --display-optimization-bailout",
     "lint": "eslint --ext .js --ext .jsx src",
     "validate": "npm ls"
